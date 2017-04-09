@@ -1,0 +1,57 @@
+
+version: '2'
+
+services:
+  # docker logs some-mysql 查看日志
+  # docker exec some-mysql sh -c 'exec mysqldump --all-databases -uroot -p"$MYSQL_ROOT_PASSWORD"' > /some/path/on/your/host/all-databases.sql 备份数据
+  mysql:
+    container_name: mysql
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=codeigniter
+      - MYSQL_USER=boer
+      - MYSQL_PASSWORD=123456
+    volumes:
+      - .\mysql\db:/var/lib/mysql
+      - .\mysql\conf.d:/etc/mysql/conf.d
+  memcached:
+    container_name: memcached
+    image: memcached:latest
+  redis:
+    container_name: redis
+    image: redis:latest
+    # volumes:
+    #   - .\redis\conf\redis.conf:/usr/local/etc/redis/redis.conf:ro
+    # command:
+    #   - redis-server /usr/local/etc/redis/redis.conf
+  php:
+    container_name: php
+    image: php-fpm:7.1
+    build:
+      context: ./php
+      dockerfile: Dockerfile
+    volumes:
+      - E:\projects\php:/data/www
+      - .\php\php-fpm.d\www.conf:/usr/local/etc/php-fpm.d/www.conf:ro
+    depends_on:
+      - mysql
+      - memcached
+      - redis
+    links:
+      - mysql:mysql
+      - memcached:memcached
+      - redis:redis
+  nginx:
+    container_name: nginx
+    image: nginx:stable
+    volumes_from:
+      - php
+    volumes:
+      - .\nginx\nginx.conf:/etc/nginx/nginx.conf:ro
+      - .\nginx\conf.d:/etc/nginx/conf.d:ro
+      - .\nginx\logs:/var/log/nginx
+    links:
+      - php:php
+    ports:
+      - 127.0.0.1:80:80
