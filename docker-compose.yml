@@ -15,6 +15,8 @@ services:
     volumes: 
       - .\mysql\db:/var/lib/mysql
       - .\mysql\conf.d:/etc/mysql/conf.d
+    ports:
+      - 3306:3306
   memcached:
     container_name: memcached
     image: memcached:latest
