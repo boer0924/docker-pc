@@ -28,6 +28,7 @@ services:
   # PHP Service
   php:
     container_name: php
+    hostname: boer-pc
     image: php-fpm:7.1
     build:
       context: ./php
