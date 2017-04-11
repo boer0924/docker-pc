@@ -1,6 +1,6 @@
 # Windows环境下运行Docker
 
-### 再也不用Wnmp/Xammp/Wamp Server了...
+### 再也不用Wnmp/Xampp/Wamp Server了...
 
 ## 1、下载安装Docker CE for Windows 或者 DockerToolbox
 https://www.docker.com/docker-windows
