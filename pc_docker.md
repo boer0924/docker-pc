@@ -1,4 +1,5 @@
-## 1、下载安装DockerToolbox
+## 1、下载安装Docker CE for Windows 或者 DockerToolbox
+https://www.docker.com/docker-windows
 https://www.docker.com/products/docker-toolbox
 
 > **What’s in the Toolbox**
@@ -9,6 +10,8 @@ https://www.docker.com/products/docker-toolbox
 > - KITEMATIC
 
 https://download.docker.com/win/stable/DockerToolbox.exe
+
+https://download.docker.com/win/stable/InstallDocker.msi
 
 ## 2、配置国内Docker加速器
 1. DaoCloud加速器
@@ -57,4 +60,3 @@ https://www.sitepoint.com/imagick-vs-gd/
 
 ### Nginx
 https://hub.docker.com/_/nginx/
-
