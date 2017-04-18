@@ -32,13 +32,14 @@ services:
     # command: 
     #   - redis-server /usr/local/etc/redis/redis.conf
   # PHP Service
+  ## PHP 5.6
   php:
     container_name: php
     hostname: boer-pc
-    image: php-fpm:7.1
+    image: php-fpm:5.6
     build:
       context: ./php
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile_5.6
     volumes: 
       - E:\projects\php:/data/www
       - .\php\php-fpm.d\www.conf:/usr/local/etc/php-fpm.d/www.conf:ro
@@ -51,26 +52,46 @@ services:
       - mysql:mysql
       - memcached:memcached
       - redis:redis
-  # WebSocket Service(PHP Swoole)
-  ws:
-    container_name: ws
-    image: php-fpm:7.1
-    build:
-      context: ./php
-      dockerfile: Dockerfile
-    volumes: 
-      - E:\projects\php:/data/www
-      - .\php\php-fpm.d\www.conf:/usr/local/etc/php-fpm.d/www.conf:ro
-      - .\common\etc\localtime:/etc/localtime:ro
-    depends_on: 
-      - mysql
-      - redis
-    links: 
-      - mysql:mysql
-      - redis:redis
-    ports: 
-      - 9501:9501
-    command: php /data/www/webchat/webchat.php
+  ## PHP 7.1
+  # php:
+  #   container_name: php
+  #   hostname: boer-pc
+  #   image: php-fpm:7.1
+  #   build:
+  #     context: ./php
+  #     dockerfile: Dockerfile
+  #   volumes: 
+  #     - E:\projects\php:/data/www
+  #     - .\php\php-fpm.d\www.conf:/usr/local/etc/php-fpm.d/www.conf:ro
+  #     - .\common\etc\localtime:/etc/localtime:ro
+  #   depends_on: 
+  #     - mysql
+  #     - memcached
+  #     - redis
+  #   links: 
+  #     - mysql:mysql
+  #     - memcached:memcached
+  #     - redis:redis
+  # # WebSocket Service(PHP Swoole)
+  # ws:
+  #   container_name: ws
+  #   image: php-fpm:7.1
+  #   build:
+  #     context: ./php
+  #     dockerfile: Dockerfile
+  #   volumes: 
+  #     - E:\projects\php:/data/www
+  #     - .\php\php-fpm.d\www.conf:/usr/local/etc/php-fpm.d/www.conf:ro
+  #     - .\common\etc\localtime:/etc/localtime:ro
+  #   depends_on: 
+  #     - mysql
+  #     - redis
+  #   links: 
+  #     - mysql:mysql
+  #     - redis:redis
+  #   ports: 
+  #     - 9501:9501
+  #   command: php /data/www/webchat/webchat.php
   # Nginx Service
   nginx:
     container_name: nginx
